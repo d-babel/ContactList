@@ -28,15 +28,19 @@ public class ContactList {
                 String s1 = "";
                 String s2 = "";
 
-                if (sortBy == 0) {
-                    s1 = contacts.get(j).getFirstName();
-                    s2 = contacts.get(j + 1).getFirstName();
-                } else if (sortBy == 1) {
-                    s1 = contacts.get(j).getLastName();
-                    s2 = contacts.get(j + 1).getLastName();
-                } else if (sortBy == 2) {
-                    s1 = contacts.get(j).getPhoneNumber();
-                    s2 = contacts.get(j + 1).getPhoneNumber();
+                switch (sortBy) {
+                    case 0:
+                        s1 = contacts.get(j).getFirstName();
+                        s2 = contacts.get(j + 1).getFirstName();
+                        break;
+                    case 1:
+                        s1 = contacts.get(j).getLastName();
+                        s2 = contacts.get(j + 1).getLastName();
+                        break;
+                    case 2:
+                        s1 = contacts.get(j).getPhoneNumber();
+                        s2 = contacts.get(j + 1).getPhoneNumber();
+                        break;
                 }
 
                 if (s1.compareToIgnoreCase(s2) > 0) {
@@ -99,68 +103,77 @@ public class ContactList {
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            if (choice == 1) {
-                System.out.println("Enter first name:");
-                String firstName = scanner.nextLine();
-                System.out.println("Enter last name:");
-                String lastName = scanner.nextLine();
-                System.out.println("Enter phone number:");
-                String phoneNumber = scanner.nextLine();
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter first name:");
+                    String firstName = scanner.nextLine();
+                    System.out.println("Enter last name:");
+                    String lastName = scanner.nextLine();
+                    System.out.println("Enter phone number:");
+                    String phoneNumber = scanner.nextLine();
 
-                System.out.println("Enter 1 to add a Student, or 2 to add a Teacher:");
-                int type = scanner.nextInt();
-                scanner.nextLine();
-
-                if (type == 1) {
-                    System.out.println("Enter grade:");
-                    int grade = scanner.nextInt();
+                    System.out.println("Enter 1 to add a Student, or 2 to add a Teacher:");
+                    int type = scanner.nextInt();
                     scanner.nextLine();
-                    addContact(new Student(firstName, lastName, phoneNumber, grade));
-                } else if (type == 2) {
-                    System.out.println("Enter subject:");
-                    String subject = scanner.nextLine();
-                    addContact(new Teacher(firstName, lastName, phoneNumber, subject));
-                }
-            } else if (choice == 2) {
-                sort(0);
-                printContacts();
-            } else if (choice == 3) {
-                sort(1);
-                printContacts();
-            } else if (choice == 4) {
-                sort(2);
-                printContacts();
-            } else if (choice == 5) {
-                listStudents();
-            } else if (choice == 6) {
-                System.out.println("Enter a first name:");
-                String firstName = scanner.nextLine();
-                Person result = searchByFirstName(firstName);
-                if (result != null) {
-                    System.out.println(result);
-                } else {
-                    System.out.println(firstName + " is not in the list");
-                }
-            } else if (choice == 7) {
-                System.out.println("Enter a last name:");
-                String lastName = scanner.nextLine();
-                Person result = searchByLastName(lastName);
-                if (result != null) {
-                    System.out.println(result);
-                } else {
-                    System.out.println(lastName + " is not in the list");
-                }
-            } else if (choice == 8) {
-                System.out.println("Enter a phone number:");
-                String phoneNumber = scanner.nextLine();
-                Person result = searchByPhoneNumber(phoneNumber);
-                if (result != null) {
-                    System.out.println(result);
-                } else {
-                    System.out.println(phoneNumber + " is not in the list");
-                }
-            } else if (choice == 0) {
-                break;
+
+                    if (type == 1) {
+                        System.out.println("Enter grade:");
+                        int grade = scanner.nextInt();
+                        scanner.nextLine();
+                        addContact(new Student(firstName, lastName, phoneNumber, grade));
+                    } else if (type == 2) {
+                        System.out.println("Enter subject:");
+                        String subject = scanner.nextLine();
+                        addContact(new Teacher(firstName, lastName, phoneNumber, subject));
+                    }
+                    break;
+                case 2:
+                    sort(0);
+                    printContacts();
+                    break;
+                case 3:
+                    sort(1);
+                    printContacts();
+                    break;
+                case 4:
+                    sort(2);
+                    printContacts();
+                    break;
+                case 5:
+                    listStudents();
+                    break;
+                case 6:
+                    System.out.println("Enter a first name:");
+                    firstName = scanner.nextLine();
+                    Person result = searchByFirstName(firstName);
+                    if (result != null) {
+                        System.out.println(result);
+                    } else {
+                        System.out.println(firstName + " is not in the list");
+                    }
+                    break;
+                case 7:
+                    System.out.println("Enter a last name:");
+                    lastName = scanner.nextLine();
+                    result = searchByLastName(lastName);
+                    if (result != null) {
+                        System.out.println(result);
+                    } else {
+                        System.out.println(lastName + " is not in the list");
+                    }
+                    break;
+                case 8:
+                    System.out.println("Enter a phone number:");
+                    phoneNumber = scanner.nextLine();
+                    result = searchByPhoneNumber(phoneNumber);
+                    if (result != null) {
+                        System.out.println(result);
+                    } else {
+                        System.out.println(phoneNumber + " is not in the list");
+                    }
+                    break;
+                case 0:
+                    return;
             }
         }
     }
